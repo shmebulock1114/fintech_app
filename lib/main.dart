@@ -11,6 +11,16 @@ class MyApp extends StatelessWidget {
       title: 'Material App',
       home: Scaffold(
         body: SingleChildScrollView(
+          //Quitar los circulos del fondo porque, no estarian formando parte de ningunwidget.
+          //La mejor forma es meterlos dentro del container amarillo, y apoyarse.
+          //es decir CONTAINER AMARILLO -> STACK -> DENTRO DEL STACK LOS CIRCULOS
+          //para la posicion de los circulos, echale ojo al widget POSITIONED, es
+          //widget que solamente se usa dentro de los stacks y es justamente para
+          //editar la posicion de los widgets.
+          //---Asi quedarian en el widget de CustomCard
+          ///////////////////////////////////
+          ///--------------------------------------
+          /////////////////////////////////////////
           child: Column(
             children: [
               SizedBox(
@@ -50,12 +60,30 @@ class MyApp extends StatelessWidget {
                         ),
                       ],
                     ),
-                    CustomCard(),
+                    ///////////////////////////////////
+                    ///--------------------------------------
+                    /////////////////////////////////////////
+                    ///Al CustomCard hay que prepararlo para que reciba parametros.
+                    ///como el title, todo lo que puede cmabiar, como las cantidades
+                    ///el icono. la palabra profit y spend
+                    ///////////////////////////////////////////
+                    const CustomCard(
+                      //
+                      titleCard: 'Your balance',
+                    ),
                   ],
                 ),
               ),
+
+              ///////////////
+              ///--Este widget tendrían que ser dos separados, por un lado la fecha es un Widget
+              ///--y por otro lado otro widget de la cantidad total
+              ///--también dejarlos preparados para que reciban parametros
               const FechData(),
               const VentasMarcas(),
+              ////
+              ///
+              ///--también dejarlos preparados para que reciban parametros
               const FechDataw(),
               const CustomProductTile(
                 textoPrecio: '-\$222',
@@ -72,11 +100,17 @@ class MyApp extends StatelessWidget {
   }
 }
 
+//////////////////PARA TODOS ESTOS WIDGETS CREAR UNA CARPETA LLAMADA "WIDGETS"
+///Y CREAR UN ARCHIVO PARA CADA WIDGET, ASI QUEDE MAS ORDENADO EL CODIGO Y
+/////SE PUEDAN USAR EN OTROS PROYECTOS.
+
 class CustomCard extends StatelessWidget {
   const CustomCard({
     Key? key,
+    required this.titleCard,
   }) : super(key: key);
 
+  final String titleCard;
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -96,9 +130,9 @@ class CustomCard extends StatelessWidget {
                 width: 250,
                 height: 60,
                 child: Row(
-                  children: const [
+                  children: [
                     Text(
-                      'Your Balance',
+                      titleCard,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 35,
